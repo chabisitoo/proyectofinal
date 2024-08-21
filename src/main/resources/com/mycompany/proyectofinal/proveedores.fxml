@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="428.0" prefWidth="600.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.proyectofinal.ProveedoresController">
+   <children>
+      <Pane layoutX="34.0" layoutY="63.0" prefHeight="281.0" prefWidth="200.0" style="-fx-border-color: black; -fx-border-radius: 5px;">
+         <children>
+            <TextField fx:id="txtId" disable="true" layoutX="26.0" layoutY="46.0" promptText="Id" />
+            <TextField fx:id="txtNombre" disable="true" layoutX="25.0" layoutY="98.0" promptText="Nombre" />
+            <TextField fx:id="txtContacto" disable="true" layoutX="26.0" layoutY="149.0" promptText="Contacto" />
+            <TextField fx:id="txtDirec" disable="true" layoutX="26.0" layoutY="198.0" promptText="Direccion" />
+            <Text layoutX="68.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IdProveedor" />
+            <Text layoutX="78.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre" />
+            <Text layoutX="75.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contacto" />
+            <Text layoutX="73.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dirección" />
+            <Button fx:id="btnNuevo" layoutX="71.0" layoutY="233.0" mnemonicParsing="false" onAction="#nuevo" prefHeight="34.0" prefWidth="58.0" style="-fx-background-radius: 5px;" text="Nuevo" />
+         </children>
+      </Pane>
+      <Pane layoutX="258.0" layoutY="62.0" prefHeight="282.0" prefWidth="307.0" style="-fx-border-color: black; -fx-border-radius: 5px;">
+         <children>
+            <TableView fx:id="tablaProveedores" layoutX="10.0" layoutY="45.0" onMouseClicked="#mostrarFila" prefHeight="229.0" prefWidth="290.0" style="-fx-background-radius: 5px;">
+              <columns>
+                <TableColumn fx:id="columId" prefWidth="44.800048828125" text="ID" />
+                <TableColumn fx:id="columNom" prefWidth="69.5999755859375" text="Nombre" />
+                  <TableColumn fx:id="columCont" prefWidth="76.79998779296875" text="Contacto" />
+                  <TableColumn fx:id="columDirec" prefWidth="97.0" text="Dirección" />
+              </columns>
+            </TableView>
+            <TextField fx:id="txtBuscar" layoutX="11.0" layoutY="8.0" onKeyReleased="#busqueda" prefHeight="25.0" prefWidth="290.0" promptText="🔍 Buscar proveedores..." style="-fx-background-radius: 5px;" />
+         </children>
+      </Pane>
+      <Pane layoutX="34.0" layoutY="366.0" prefHeight="48.0" prefWidth="531.0" style="-fx-border-color: black; -fx-border-radius: 5px;">
+         <children>
+            <Button fx:id="btnGuardar" disable="true" layoutX="56.0" layoutY="11.0" mnemonicParsing="false" onAction="#guardar" style="-fx-background-radius: 5px;" text="Guardar" />
+            <Button fx:id="btnCancelar" disable="true" layoutX="138.0" layoutY="12.0" mnemonicParsing="false" onAction="#cancelar" style="-fx-background-radius: 5px;" text="Cancelar" />
+            <Button fx:id="btnModificar" disable="true" layoutX="294.0" layoutY="12.0" mnemonicParsing="false" onAction="#modificar" style="-fx-background-radius: 5px;" text="Modificar" />
+            <Button fx:id="btnEliminar" disable="true" layoutX="220.0" layoutY="12.0" mnemonicParsing="false" onAction="#eliminar" style="-fx-background-radius: 5px;" text="Eliminar" />
+         </children>
+      </Pane>
+      <Button layoutX="24.0" layoutY="14.0" mnemonicParsing="false" onAction="#volver" style="-fx-background-color: trasparent;" text="🔙">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
