@@ -4,12 +4,14 @@
  */
 package com.mycompany.proyectofinal;
 
+import com.mycompany.proyectofinal.clase.conexion;
 import com.mycompany.proyectofinal.modelo.detalleprove;
 import com.mycompany.proyectofinal.modelo.factprove;
 import com.mycompany.proyectofinal.modelo.materiales;
 import com.mycompany.proyectofinal.modelo.proveedores;
 import java.net.URL;
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.time.LocalDate;
 import java.util.Optional;
@@ -20,7 +22,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import com.mycompany.proyectofinal.clase.conexion;
+
 import java.sql.SQLException;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -38,7 +40,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
  *
  * @author fjavi
  */
-public class FacturaProveController implements Initializable {
+public class FacturaProveController extends conexion implements Initializable {
 
     @FXML
     private TextField txtFact;
@@ -144,7 +146,7 @@ public class FacturaProveController implements Initializable {
     private void actualizarStockEnBaseDatos(int idMaterial, int nuevoStock) {
         String sql = "UPDATE materiales SET cantidad = ? WHERE id_material = ?";
 
-        try (Connection con= getCon(); PreparedStatement stm = con.prepareStatement(sql)) {
+        try (Connection con = getCon(); PreparedStatement stm = con.prepareStatement(sql)) {
 
             stm.setInt(1, nuevoStock);
             stm.setInt(2, idMaterial);
