@@ -71,7 +71,7 @@ public class FacturaProveController extends conexion implements Initializable {
     ObservableList<proveedores> registrosProveedor;
     ObservableList<materiales> registrosMateriales;
     ObservableList<detalleprove> registrosDetalle;
-    ObservableList<materiales>registros;
+    ObservableList<materiales> registros;
     @FXML
     private TableView<detalleprove> tablaDetalle;
     @FXML
@@ -297,6 +297,9 @@ public class FacturaProveController extends conexion implements Initializable {
         alerta.setContentText("¿Desea grabar el pedido?");
         Optional<ButtonType> opcion = alerta.showAndWait();
         if (opcion.get() == ButtonType.OK) {
+            for (detalleprove detalle : registrosDetalle) {
+                actualizarStock(detalle.getCodMat(), detalle.getCantidad());
+            }
             buscarProveedor();
             f.setCod(Integer.parseInt(txtFact.getText()));
             f.setFecha(txtFecha.getValue().toString());
