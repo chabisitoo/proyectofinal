@@ -9,6 +9,8 @@ import com.mycompany.proyectofinal.modelo.factprove;
 import com.mycompany.proyectofinal.modelo.materiales;
 import com.mycompany.proyectofinal.modelo.proveedores;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -18,7 +20,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-
+import com.mycompany.proyectofinal.clase.conexion;
+import java.sql.SQLException;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
@@ -66,6 +69,7 @@ public class FacturaProveController implements Initializable {
     ObservableList<proveedores> registrosProveedor;
     ObservableList<materiales> registrosMateriales;
     ObservableList<detalleprove> registrosDetalle;
+    ObservableList<materiales>registros;
     @FXML
     private TableView<detalleprove> tablaDetalle;
     @FXML
@@ -122,6 +126,38 @@ public class FacturaProveController implements Initializable {
         txtCant.setDisable(false);
         btnAgregar.setDisable(false);
 
+    }
+
+    public void actualizarStock(int idMaterial, int cantidadSumar) {
+        for (materiales mat : registros) {
+            if (mat.getIdMaterial() == idMaterial) {
+                int nuevoStock = mat.getCantidad() + cantidadSumar;
+                mat.setCantidad(nuevoStock);
+
+                // Actualiza el stock en la base de datos
+                actualizarStockEnBaseDatos(idMaterial, nuevoStock);
+                break;
+            }
+        }
+    }
+
+    private void actualizarStockEnBaseDatos(int idMaterial, int nuevoStock) {
+        String sql = "UPDATE materiales SET cantidad = ? WHERE id_material = ?";
+
+        try (Connection con= getCon(); PreparedStatement stm = con.prepareStatement(sql)) {
+
+            stm.setInt(1, nuevoStock);
+            stm.setInt(2, idMaterial);
+
+            int filasActualizadas = stm.executeUpdate();
+            if (filasActualizadas > 0) {
+                System.out.println("Stock actualizado correctamente para el material ID: " + idMaterial);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error al actualizar el stock en la base de datos.");
+        }
     }
 
     public void abrirFxml(String fxml, String titulo) {
@@ -181,75 +217,75 @@ public class FacturaProveController implements Initializable {
 
     @FXML
     private void agregarFila(ActionEvent event) {
-    if (!"".equals(txtFact.getText()) || comboProve.getSelectionModel().getSelectedItem() != null) {
-        txtFact.setDisable(true);
-        comboProve.setDisable(true);
-        txtFecha.setDisable(true);
-    }
-    if (!txtCant.getText().isEmpty()) {
-        buscarProducto();  // Obtener el material seleccionado
-        buscarProveedor();
-        // Validar si el material ya existe en el detalle
-        boolean materialRepetido = false;
-        for (detalleprove det : registrosDetalle) {
-            if (det.getCodMat() == codMat) {
-                materialRepetido = true;
-                break;  // Romper el bucle si se encuentra un detalle repetido
-            }
+        if (!"".equals(txtFact.getText()) || comboProve.getSelectionModel().getSelectedItem() != null) {
+            txtFact.setDisable(true);
+            comboProve.setDisable(true);
+            txtFecha.setDisable(true);
         }
+        if (!txtCant.getText().isEmpty()) {
+            buscarProducto();  // Obtener el material seleccionado
+            buscarProveedor();
+            // Validar si el material ya existe en el detalle
+            boolean materialRepetido = false;
+            for (detalleprove det : registrosDetalle) {
+                if (det.getCodMat() == codMat) {
+                    materialRepetido = true;
+                    break;  // Romper el bucle si se encuentra un detalle repetido
+                }
+            }
 
-        if (!materialRepetido) {
-            int subtotal = precio * Integer.parseInt(txtCant.getText());
-            total = total + subtotal;
+            if (!materialRepetido) {
+                int subtotal = precio * Integer.parseInt(txtCant.getText());
+                total = total + subtotal;
 
-            // Agregar el detalle del material
-            detalleprove dtv = new detalleprove(codMat, comboMaterial.getSelectionModel().getSelectedItem(), precio, Integer.parseInt(txtCant.getText()), subtotal);
-            registrosDetalle.add(dtv);
-            tablaDetalle.setItems(registrosDetalle);
-            comboMaterial.setValue(null);
-            txtTotal.setText(String.valueOf(total));
-            txtCant.clear();
-            txtCant.setDisable(false);
-            btnGrabar.setDisable(false);
-        } else {
-            // Mensaje de advertencia
-            Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
-            alerta.setTitle("El sistema comunica;");
-            alerta.setHeaderText(null);
-            alerta.setContentText("El material ya se encuentra en el pedido, ¿Desea modificar la cantidad?");
-            Optional<ButtonType> opcion = alerta.showAndWait();
-            if (opcion.isPresent() && opcion.get() == ButtonType.OK) {
-                TextInputDialog dialog = new TextInputDialog();
-                dialog.setTitle("Modificar cantidad");
-                dialog.setHeaderText("Por favor, ingrese la nueva cantidad:");
-                dialog.setContentText("Cantidad:");
-                Optional<String> result = dialog.showAndWait();
-                if (result.isPresent()) {
-                    try {
-                        int nuevaCantidad = Integer.parseInt(result.get());
-                        for (detalleprove det : registrosDetalle) {
-                            if (det.getCodMat() == codMat) {
-                                // Actualizar cantidad y subtotal
-                                total -= det.getSubtotal();  // Restar el subtotal antiguo
-                                det.setCantidad(nuevaCantidad);
-                                int nuevoSubtotal = nuevaCantidad * det.getPrecio();
-                                det.setSubtotal(nuevoSubtotal);
-                                total += nuevoSubtotal;  // Agregar el nuevo subtotal
-                                txtTotal.setText(String.valueOf(total));
-                                
-                                // Refrescar la tabla para mostrar los nuevos datos
-                                tablaDetalle.refresh();
-                                break;
+                // Agregar el detalle del material
+                detalleprove dtv = new detalleprove(codMat, comboMaterial.getSelectionModel().getSelectedItem(), precio, Integer.parseInt(txtCant.getText()), subtotal);
+                registrosDetalle.add(dtv);
+                tablaDetalle.setItems(registrosDetalle);
+                comboMaterial.setValue(null);
+                txtTotal.setText(String.valueOf(total));
+                txtCant.clear();
+                txtCant.setDisable(false);
+                btnGrabar.setDisable(false);
+            } else {
+                // Mensaje de advertencia
+                Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+                alerta.setTitle("El sistema comunica;");
+                alerta.setHeaderText(null);
+                alerta.setContentText("El material ya se encuentra en el pedido, ¿Desea modificar la cantidad?");
+                Optional<ButtonType> opcion = alerta.showAndWait();
+                if (opcion.isPresent() && opcion.get() == ButtonType.OK) {
+                    TextInputDialog dialog = new TextInputDialog();
+                    dialog.setTitle("Modificar cantidad");
+                    dialog.setHeaderText("Por favor, ingrese la nueva cantidad:");
+                    dialog.setContentText("Cantidad:");
+                    Optional<String> result = dialog.showAndWait();
+                    if (result.isPresent()) {
+                        try {
+                            int nuevaCantidad = Integer.parseInt(result.get());
+                            for (detalleprove det : registrosDetalle) {
+                                if (det.getCodMat() == codMat) {
+                                    // Actualizar cantidad y subtotal
+                                    total -= det.getSubtotal();  // Restar el subtotal antiguo
+                                    det.setCantidad(nuevaCantidad);
+                                    int nuevoSubtotal = nuevaCantidad * det.getPrecio();
+                                    det.setSubtotal(nuevoSubtotal);
+                                    total += nuevoSubtotal;  // Agregar el nuevo subtotal
+                                    txtTotal.setText(String.valueOf(total));
+
+                                    // Refrescar la tabla para mostrar los nuevos datos
+                                    tablaDetalle.refresh();
+                                    break;
+                                }
                             }
+                        } catch (NumberFormatException e) {
+                            System.out.println("Por favor, ingrese un valor numérico válido.");
                         }
-                    } catch (NumberFormatException e) {
-                        System.out.println("Por favor, ingrese un valor numérico válido.");
                     }
                 }
             }
         }
     }
-}
 
     @FXML
     private void grabar(ActionEvent event) {
