@@ -63,6 +63,7 @@ public class FacturaProveController extends conexion implements Initializable {
     int precio = 0;
     int total = 0;
     //objetos
+    //Hola suruuuu
     proveedores p = new proveedores();
     materiales m = new materiales();
     factprove f = new factprove();
