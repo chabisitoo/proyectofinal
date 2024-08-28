@@ -24,6 +24,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 
 import java.sql.SQLException;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
@@ -34,6 +35,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -132,7 +134,7 @@ public class FacturaProveController extends conexion implements Initializable {
     }
 
     public void actualizarStock(int idMaterial, int cantidadSumar) {
-        for (materiales mat : registros) {
+        for (materiales mat : registrosMateriales) {
             if (mat.getIdMaterial() == idMaterial) {
                 int nuevoStock = mat.getCantidad() + cantidadSumar;
                 mat.setCantidad(nuevoStock);
@@ -145,7 +147,7 @@ public class FacturaProveController extends conexion implements Initializable {
     }
 
     private void actualizarStockEnBaseDatos(int idMaterial, int nuevoStock) {
-        String sql = "UPDATE materiales SET cantidad = ? WHERE id_material = ?";
+        String sql = "UPDATE materiales SET cantidad = ? WHERE idMateriales = ?";
 
         try (Connection con = getCon(); PreparedStatement stm = con.prepareStatement(sql)) {
 
@@ -225,7 +227,7 @@ public class FacturaProveController extends conexion implements Initializable {
             comboProve.setDisable(true);
             txtFecha.setDisable(true);
         }
-        if (!txtCant.getText().isEmpty()) {
+        if (!txtCant.getText().isEmpty()||!txtCant.getText().equals(0)) {
             buscarProducto();  // Obtener el material seleccionado
             buscarProveedor();
             // Validar si el material ya existe en el detalle
@@ -327,7 +329,12 @@ public class FacturaProveController extends conexion implements Initializable {
                 alertaIn.setContentText("Error. Registro no insertado.");
                 alertaIn.show();
             }
-        }
+        }    
+        btnGrabar.setDisable(true);
+        comboMaterial.setDisable(true);
+        txtCant.setDisable(true);
+        btnAgregar.setDisable(true);
+        
     }
 
     @FXML
@@ -337,13 +344,25 @@ public class FacturaProveController extends conexion implements Initializable {
     @FXML
     private void cancelar(ActionEvent event) {
         //limpiar los campos
-        TextField[] fields = {txtFact, txtCant, txtClie, txtProd, txtTotal};
+        TextField[] fields = {txtFact, txtCant, txtTotal};
         for (TextField field : fields) {
             field.clear();
-            field.setDisable(true);
+            field.setDisable(false);
         }
-
-        txtFecha.setDisable(true);
+        registrosDetalle.clear();
+        tablaDetalle.refresh();
+        txtFecha.setValue(null);
+        txtCant.clear();
+        txtCant.setDisable(true);
+        txtFact.setDisable(true);
+        
+        
+        comboMaterial.setValue(null);
+        comboProve.setValue(null);
+        comboMaterial.setDisable(true);
+        txtFecha.setDisable(false);
+        
+        comboProve.setDisable(true);
         btnGrabar.setDisable(true);
         btnNuevo.setDisable(false);
         btnAgregar.setDisable(true);
@@ -364,4 +383,11 @@ public class FacturaProveController extends conexion implements Initializable {
 
         }
     }
-}
+
+    @FXML
+    private void volver(ActionEvent event) {
+         Stage ventanaActual = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                        ventanaActual.close();
+    }
+    }
+

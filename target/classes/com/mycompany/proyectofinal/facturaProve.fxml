@@ -12,9 +12,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="495.0" prefWidth="709.0" style="-fx-background-color: #1b4f72;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.proyectofinal.FacturaProveController">
+<AnchorPane id="AnchorPane" prefHeight="519.0" prefWidth="709.0" style="-fx-background-color: #1b4f72;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.proyectofinal.FacturaProveController">
    <children>
-      <Pane layoutX="14.0" layoutY="14.0" prefHeight="188.0" prefWidth="679.0" style="-fx-background-color: #85929e; -fx-background-radius: 5px;">
+      <Pane layoutX="14.0" layoutY="38.0" prefHeight="188.0" prefWidth="679.0" style="-fx-background-color: #85929e; -fx-background-radius: 5px;">
          <children>
             <TextField fx:id="txtFact" disable="true" layoutX="25.0" layoutY="41.0" promptText="Nro Factura" style="-fx-border-style: solid; -fx-border-radius: 5px; -fx-background-radius: 5px;" />
             <DatePicker fx:id="txtFecha" disable="true" layoutX="458.0" layoutY="41.0" style="-fx-border-style: solid; -fx-border-radius: 5px; -fx-background-radius: 5px;" />
@@ -35,7 +35,7 @@
             <Text layoutX="259.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Seleccione material" />
          </children>
       </Pane>
-      <TableView fx:id="tablaDetalle" layoutX="14.0" layoutY="208.0" prefHeight="220.0" prefWidth="679.0" style="-fx-background-radius: 5px;">
+      <TableView fx:id="tablaDetalle" layoutX="14.0" layoutY="232.0" prefHeight="220.0" prefWidth="679.0" style="-fx-background-radius: 5px;">
         <columns>
           <TableColumn fx:id="columCod" prefWidth="75.0" text="Código" />
           <TableColumn fx:id="columDesc" prefWidth="304.0" text="Descripción" />
@@ -44,15 +44,20 @@
             <TableColumn fx:id="columSubTotal" prefWidth="82.0" text="SubTotal" />
         </columns>
       </TableView>
-      <Label layoutX="510.0" layoutY="454.0" text="Total:" />
-      <TextField fx:id="txtTotal" alignment="BOTTOM_RIGHT" disable="true" layoutX="546.0" layoutY="450.0" promptText="0" style="-fx-background-color: #85929e;" />
-      <Pane layoutX="14.0" layoutY="434.0" prefHeight="47.0" prefWidth="478.0" style="-fx-background-color: #85929e; -fx-background-radius: 5px;">
+      <Label layoutX="510.0" layoutY="478.0" text="Total:" />
+      <TextField fx:id="txtTotal" alignment="BOTTOM_RIGHT" disable="true" layoutX="546.0" layoutY="474.0" promptText="0" style="-fx-background-color: #85929e;" />
+      <Pane layoutX="14.0" layoutY="458.0" prefHeight="47.0" prefWidth="478.0" style="-fx-background-color: #85929e; -fx-background-radius: 5px;">
          <children>
             <Button fx:id="btnNuevo" layoutX="25.0" layoutY="9.0" mnemonicParsing="false" onAction="#nuevo" style="-fx-border-radius: 5px;" text="Nuevo" />
             <Button fx:id="btnGrabar" disable="true" layoutX="99.0" layoutY="9.0" mnemonicParsing="false" onAction="#grabar" style="-fx-border-radius: 5px;" text="Grabar" />
-            <Button layoutX="176.0" layoutY="9.0" mnemonicParsing="false" onAction="#cancelar" style="-fx-border-radius: 5px;" text="Cancelar" />
+            <Button layoutX="176.0" layoutY="9.0" mnemonicParsing="false" onAction="#cancelar" style="-fx-border-radius: 5px;" text="Limpiar" />
             <Button fx:id="btnImprimir" disable="true" layoutX="265.0" layoutY="9.0" mnemonicParsing="false" onAction="#imprimir" style="-fx-border-radius: 5px;" text="Imprimir" />
          </children>
       </Pane>
+      <Button layoutX="14.0" layoutY="-6.0" mnemonicParsing="false" onAction="#volver" style="-fx-background-color: trasparent; -fx-text-fill: white;" text="🔙">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
