@@ -34,7 +34,6 @@ public class MenuController implements Initializable {
     private MenuItem menuMateriales;
     @FXML
     private MenuItem menuProveedores;
-    String admin="JavierRiveros";
     @FXML
     private MenuItem menuCliente;
     @FXML

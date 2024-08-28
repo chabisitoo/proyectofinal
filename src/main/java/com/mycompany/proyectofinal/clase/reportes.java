@@ -21,7 +21,7 @@ public class reportes extends conexion {
 
     public reportes() {
     }
-    public void generarReporte(String ubicacion,String titulo){
+    public void generarReporteParametro(String ubicacion,String titulo,int parametro){
        
           try {
               // Ruta al archivo .jasper
@@ -30,6 +30,7 @@ public class reportes extends conexion {
               // Parámetros del informe
               Map<String, Object> parameters = new HashMap<>();
               // Agrega parámetros según sea necesario
+              parameters.put("codFactura", parametro);
              
               // Llenar el informe
               JasperPrint jasperPrint = JasperFillManager.fillReport(reportPath, parameters, getCon());
@@ -45,5 +46,27 @@ public class reportes extends conexion {
 
        
 }
+     public void generarReporte(String ubicacion,String titulo){
+       
+          try {
+              // Ruta al archivo .jasper
+              String reportPath = getClass().getResource(ubicacion).getPath();
+             
+              // Parámetros del informe
+              Map<String, Object> parameters = new HashMap<>();
+              // Agrega parámetros según sea necesario
+           
+             
+              // Llenar el informe
+              JasperPrint jasperPrint = JasperFillManager.fillReport(reportPath, parameters, getCon());
+             
+              // Mostrar el informe en una nueva ventana
+            JasperViewer viewer = new JasperViewer(jasperPrint, false);
+            viewer.setTitle(titulo);
+            viewer.setVisible(true);
+
+          } catch (JRException ex) {
+              Logger.getLogger(reportes.class.getName()).log(Level.SEVERE, null, ex);
+          }
     
-}
+}}

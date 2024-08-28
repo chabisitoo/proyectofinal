@@ -5,6 +5,7 @@
 package com.mycompany.proyectofinal;
 
 import com.mycompany.proyectofinal.clase.conexion;
+import com.mycompany.proyectofinal.clase.reportes;
 import com.mycompany.proyectofinal.modelo.detalleprove;
 import com.mycompany.proyectofinal.modelo.factprove;
 import com.mycompany.proyectofinal.modelo.materiales;
@@ -339,6 +340,10 @@ public class FacturaProveController extends conexion implements Initializable {
 
     @FXML
     private void imprimir(ActionEvent event) {
+        reportes r=new reportes();
+              String ubicacion="/reportes/facturaProveedor.jasper";
+   String titulo="Imprimir factura del Proveedor";
+        r.generarReporteParametro(ubicacion, titulo,Integer.parseInt(txtFact.getText()));
     }
 
     @FXML
@@ -358,9 +363,11 @@ public class FacturaProveController extends conexion implements Initializable {
         
         
         comboMaterial.setValue(null);
+        comboMaterial.getItems().clear();
         comboProve.setValue(null);
+        comboProve.getItems().clear();
         comboMaterial.setDisable(true);
-        txtFecha.setDisable(false);
+        txtFecha.setDisable(true);
         
         comboProve.setDisable(true);
         btnGrabar.setDisable(true);

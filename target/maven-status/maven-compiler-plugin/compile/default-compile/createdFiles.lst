@@ -8,7 +8,6 @@ com\mycompany\proyectofinal\modelo\cliente.class
 com\mycompany\proyectofinal\FacturaProveController.class
 com\mycompany\proyectofinal\modelo\servicios.class
 module-info.class
-com\mycompany\proyectofinal\FacturaController.class
 com\mycompany\proyectofinal\modelo\detalleprove.class
 com\mycompany\proyectofinal\clase\conexion.class
 com\mycompany\proyectofinal\ProveedoresController.class
