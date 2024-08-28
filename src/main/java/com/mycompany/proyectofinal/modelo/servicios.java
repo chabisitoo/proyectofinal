@@ -21,10 +21,10 @@ import java.util.logging.Logger;
  */
 public class servicios extends conexion implements sentencias {
     private int id;
-    private String costo;
+    private int costo;
     private String descripcion;
 
-    public servicios(int idServicios, String costo, String descripcion) {
+    public servicios(int idServicios, int costo, String descripcion) {
         this.id = idServicios;
         this.costo = costo;
         this.descripcion = descripcion;
@@ -41,11 +41,11 @@ public class servicios extends conexion implements sentencias {
         this.id = idServicios;
     }
 
-    public String getCosto() {
+    public int getCosto() {
         return costo;
     }
 
-    public void setCosto(String costo) {
+    public void setCosto(int costo) {
         this.costo = costo;
     }
 
@@ -64,7 +64,7 @@ public class servicios extends conexion implements sentencias {
                 Connection con = getCon(); PreparedStatement stm = con.prepareStatement(sql)) {
             stm.setInt(1, this.id);
             stm.setString(2, this.descripcion);
-            stm.setString(3, this.costo);
+            stm.setInt(3, this.costo);
             stm.executeUpdate();
             return true;
         } catch (SQLException ex) {
@@ -82,7 +82,7 @@ public class servicios extends conexion implements sentencias {
             while (rs.next()) {
                 int cod = rs.getInt("idServicios");
                 String desc = rs.getString("descripcion");
-                String cost = rs.getString("costo");
+                int cost = rs.getInt("costo");
                 servicios s = new servicios(cod,cost,desc);
                 servicioss.add(s);
             }
@@ -100,7 +100,7 @@ public class servicios extends conexion implements sentencias {
         try (
                 Connection con = getCon(); PreparedStatement stm = con.prepareStatement(sql)) {
             stm.setString(1, this.descripcion);
-            stm.setString(2, this.costo);
+            stm.setInt(2, this.costo);
             stm.setInt(3, this.id);
             stm.executeUpdate();
             return true;

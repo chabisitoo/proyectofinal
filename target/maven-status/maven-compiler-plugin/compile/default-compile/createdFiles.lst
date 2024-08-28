@@ -19,5 +19,7 @@ com\mycompany\proyectofinal\modelo\proveedores.class
 com\mycompany\proyectofinal\modelo\sentencias.class
 com\mycompany\proyectofinal\MaterialesController.class
 com\mycompany\proyectofinal\modelo\login.class
+com\mycompany\proyectofinal\modelo\factura.class
+com\mycompany\proyectofinal\modelo\detallefactura.class
 com\mycompany\proyectofinal\MenuController.class
 com\mycompany\proyectofinal\PrimaryController.class

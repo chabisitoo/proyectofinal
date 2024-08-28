@@ -88,7 +88,7 @@ public class ServiciosController implements Initializable {
     private void mostrarFila(MouseEvent event) {
         s = tablaService.getSelectionModel().getSelectedItem();
         txtId.setText(String.valueOf(s.getIdServicios()));
-        txtCost.setText(s.getCosto());
+        txtCost.setText(String.valueOf(s.getCosto()));
         txtDesc.setText(s.getDescripcion());
 
         //habilitar boton
@@ -127,7 +127,7 @@ public class ServiciosController implements Initializable {
             alerta.show();
         } else {
             int cod = Integer.parseInt(txtId.getText());
-            String cost = txtCost.getText();
+            int cost = Integer.parseInt(txtCost.getText());
             String desc = txtDesc.getText();
             s.setIdServicios(cod);
             s.setCosto(cost);
