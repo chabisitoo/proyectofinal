@@ -41,7 +41,7 @@ import javafx.stage.Stage;
  * @author Lucas
  */
 public class FacturaController implements Initializable {
-
+    //hola suru
     @FXML
     private TextField txtFact;
     @FXML
