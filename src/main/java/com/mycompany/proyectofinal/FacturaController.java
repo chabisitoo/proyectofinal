@@ -43,6 +43,8 @@ import javafx.stage.Stage;
 public class FacturaController implements Initializable {
 
     @FXML
+    private TextField txtFact;
+    @FXML
     private DatePicker txtFecha;
     @FXML
     private TextField txtCant;
@@ -85,9 +87,9 @@ public class FacturaController implements Initializable {
 
     ObservableList<cliente> registrosCliente;
     ObservableList<servicios> registrosServicios;
-    ObservableList<detallefactura> registrosDetallef;
+    ObservableList<detallefactura> registrosDetalle;
     @FXML
-    private ComboBox<String> comboTipo;
+    private ComboBox<?> comboTipo;
 
     /**
      * Initializes the controller class.
@@ -97,8 +99,7 @@ public class FacturaController implements Initializable {
         // TODO
         registrosCliente = FXCollections.observableArrayList(c.consulta());
         registrosServicios = FXCollections.observableArrayList(s.consulta());
-        registrosDetallef = FXCollections.observableArrayList();
-        registrosDetallef.clear();
+        registrosDetalle = FXCollections.observableArrayList();
         ///definicion de las columnas de la tabla
         columCod.setCellValueFactory(new PropertyValueFactory<>("codSer"));
         columDesc.setCellValueFactory(new PropertyValueFactory<>("descrip"));
@@ -107,34 +108,34 @@ public class FacturaController implements Initializable {
         columSubTotal.setCellValueFactory(new PropertyValueFactory<>("subtotal"));
         tablaDetalle.setTooltip(new Tooltip("Agregar productos"));
     }
-
+    
     @FXML
     private void agregarFila(ActionEvent event) {
-        if ( comboCliente.getSelectionModel().getSelectedItem() != null) {
-            
+         if (!"".equals(txtFact.getText()) || comboCliente.getSelectionModel().getSelectedItem() != null) {
+            txtFact.setDisable(true);
             comboCliente.setDisable(true);
             txtFecha.setDisable(true);
         }
-        if (!txtCant.getText().isEmpty() || !txtCant.getText().equals(0)) {
-            buscarServicio();  // Obtener el servicio seleccionado
+        if (!txtCant.getText().isEmpty()||!txtCant.getText().equals(0)) {
+            buscarServicio();  // Obtener el material seleccionado
             buscarCliente();
-            // Validar si el servicio ya existe en el detalle
+            // Validar si el material ya existe en el detalle
             boolean servicioRepetido = false;
-            for (detallefactura det : registrosDetallef) {
+            for (detallefactura det : registrosDetalle) {
                 if (det.getCodSer() == codSer) {
                     servicioRepetido = true;
                     break;  // Romper el bucle si se encuentra un detalle repetido
                 }
             }
 
-            if (!servicioRepetido) {
+            if (servicioRepetido) {
                 int subtotal = precio * Integer.parseInt(txtCant.getText());
                 total = total + subtotal;
 
-                // Agregar el detalle del servicio
+                // Agregar el detalle del material
                 detallefactura dtv = new detallefactura(codSer, comboServicio.getSelectionModel().getSelectedItem(), precio, Integer.parseInt(txtCant.getText()), subtotal);
-                registrosDetallef.add(dtv);
-                tablaDetalle.setItems(registrosDetallef);
+                registrosDetalle.add(dtv);
+                tablaDetalle.setItems(registrosDetalle);
                 comboServicio.setValue(null);
                 txtTotal.setText(String.valueOf(total));
                 txtCant.clear();
@@ -156,7 +157,7 @@ public class FacturaController implements Initializable {
                     if (result.isPresent()) {
                         try {
                             int nuevaCantidad = Integer.parseInt(result.get());
-                            for (detallefactura det : registrosDetallef) {
+                            for (detallefactura det : registrosDetalle) {
                                 if (det.getCodSer() == codSer) {
                                     // Actualizar cantidad y subtotal
                                     total -= det.getSubtotal();  // Restar el subtotal antiguo
@@ -178,18 +179,18 @@ public class FacturaController implements Initializable {
                 }
             }
         }
-
+    
     }
 
     @FXML
     private void nuevo(ActionEvent event) {
+        txtFact.setDisable(false);
+        txtFact.requestFocus();
         txtFecha.setDisable(false);
         btnNuevo.setDisable(true);
         comboCliente.setDisable(false);
-        comboCliente.requestFocus();
         comboServicio.setDisable(false);
-        comboTipo.setDisable(false);
-        comboTipo.getItems().addAll("Credito", "Contado");
+        comboTipo.setDisable(true);
         //fecha actual
         txtFecha.setValue(LocalDate.now());
         cargarCliente();
@@ -198,100 +199,75 @@ public class FacturaController implements Initializable {
         btnAgregar.setDisable(false);
     }
 
-@FXML
-private void grabar(ActionEvent event) {
-    Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
-    alerta.setTitle("El sistema comunica;");
-    alerta.setHeaderText(null);
-    alerta.setContentText("¿Desea grabar el pedido?");
-
-    Optional<ButtonType> opcion = alerta.showAndWait();
-    if (opcion.get() == ButtonType.OK) {
-        // Verificar si se ha seleccionado un tipo en el comboBox
-        if (comboTipo.getSelectionModel().getSelectedItem() == null) {
-            Alert alertaa = new Alert(Alert.AlertType.WARNING);
-            alertaa.setTitle("El sistema comunica");
-            alertaa.setHeaderText(null);
-            alertaa.setContentText("Rellene todos los campos");
-            alertaa.show();  // Cambié aquí la variable alertaa
-        } else if (registrosDetallef.isEmpty()) {
-            // Verificar si la tabla de detalles no está vacía
-            Alert alertaa = new Alert(Alert.AlertType.WARNING);
-            alertaa.setTitle("El sistema comunica");
-            alertaa.setHeaderText(null);
-            alertaa.setContentText("Debe agregar al menos un servicio al pedido");
-            alertaa.show();
-        } else {
-            // Si todo está completo, proceder con la inserción
-            buscarServicio();
+    @FXML
+    private void grabar(ActionEvent event) {
+        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+        alerta.setTitle("El sistema comunica;");
+        alerta.setHeaderText(null);
+        alerta.setContentText("¿Desea grabar el pedido?");
+        Optional<ButtonType> opcion = alerta.showAndWait();
+        if (opcion.get() == ButtonType.OK) {
+            }
             buscarCliente();
-           
+            f.setIdFactura(Integer.parseInt(txtFact.getText()));
             f.setFecha(txtFecha.getValue().toString());
             f.setTotal(total);
             f.setCodCliee(codCliee);
-            f.setTipodeven(comboTipo.getSelectionModel().getSelectedItem());
-
-            if (f.insertar()) { // Insertar la factura
-                for (detallefactura object : registrosDetallef) {
-                    df.setCod(f.getIdFactura());
+            if (f.insertar()) {//insertado
+                for (detallefactura object : registrosDetalle) {
+                    df.setCod(Integer.parseInt(txtFact.getText()));
                     df.setCodSer(object.getCodSer());
                     df.setCantidad(object.getCantidad());
                     df.insertar();
                 }
-                // Mostrar mensaje de éxito
                 Alert alertaIn = new Alert(Alert.AlertType.INFORMATION);
                 alertaIn.setTitle("El sistema comunica:");
                 alertaIn.setHeaderText(null);
                 alertaIn.setContentText("Insertado correctamente en la base de datos");
                 alertaIn.show();
-                
-                // Habilitar el botón de Imprimir
+                //habilitar Imprimir
                 btnImprimir.setDisable(false);
             } else {
-                // Mostrar mensaje de error si no se pudo insertar
                 Alert alertaIn = new Alert(Alert.AlertType.ERROR);
                 alertaIn.setTitle("El sistema comunica:");
                 alertaIn.setHeaderText(null);
                 alertaIn.setContentText("Error. Registro no insertado.");
                 alertaIn.show();
             }
-        }
+          
+        btnGrabar.setDisable(true);
+        comboServicio.setDisable(true);
+        txtCant.setDisable(true);
+        btnAgregar.setDisable(true);
+        
+    
     }
-
-    // Deshabilitar campos y botones después de grabar
-    btnGrabar.setDisable(true);
-    comboServicio.setDisable(true);
-    txtCant.setDisable(true);
-    btnAgregar.setDisable(true);
-}
 
     @FXML
     private void cancelar(ActionEvent event) {
-        TextField[] fields = { txtCant, txtTotal};
+         TextField[] fields = {txtFact, txtCant, txtTotal};
         for (TextField field : fields) {
             field.clear();
             field.setDisable(false);
         }
-        registrosDetallef.clear();
+        registrosDetalle.clear();
         tablaDetalle.refresh();
         txtFecha.setValue(null);
         txtCant.clear();
         txtCant.setDisable(true);
+        txtFact.setDisable(true);
         
         
         comboServicio.setValue(null);
-        comboServicio.getItems().clear();
         comboCliente.setValue(null);
-        comboCliente.getItems().clear();
-        comboCliente.setDisable(true);
-        txtFecha.setDisable(true);
-        
         comboServicio.setDisable(true);
+        txtFecha.setDisable(false);
+        
+        comboCliente.setDisable(true);
         btnGrabar.setDisable(true);
         btnNuevo.setDisable(false);
         btnAgregar.setDisable(true);
         btnImprimir.setDisable(true);
-
     }
 
     @FXML
@@ -301,9 +277,8 @@ private void grabar(ActionEvent event) {
     @FXML
     private void volver(ActionEvent event) {
         Stage ventanaActual = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        ventanaActual.close();
+                        ventanaActual.close();
     }
-
     private void cargarCliente() {
         for (cliente object : registrosCliente) {
             comboCliente.getItems().add(object.getNombre());
@@ -317,16 +292,17 @@ private void grabar(ActionEvent event) {
 
         }
     }
-
-    
     private void buscarCliente() {
-    for (cliente object : registrosCliente) {
-        if (object.getNombre().equals(comboCliente.getSelectionModel().getSelectedItem())) {
-            codCliee = object.getRuc();  // Debe ser el RUC correcto del cliente
-        }               
+        
+        for (cliente object : registrosCliente) {
+            if(object.getNombre().equals(comboServicio.getSelectionModel().getSelectedItem())){
+                codSer = object.getRuc();
+                
+            }               
+        }
+       
+    
     }
-}
-
     private void buscarServicio() {
 
         for (servicios object : registrosServicios) {
@@ -338,5 +314,6 @@ private void grabar(ActionEvent event) {
         }
         txtCant.setDisable(false);
         btnAgregar.setDisable(false);
+        
     }
 }
