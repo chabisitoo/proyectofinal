@@ -115,4 +115,9 @@ public class MenuController implements Initializable {
         abrirFxml("facturaProve.fxml","Formulario Factura Proveedores");
     }
 
+    @FXML
+    private void factura(ActionEvent event) {
+        abrirFxml("factura.fxml","Formulario Factura");
+    }
+
 }

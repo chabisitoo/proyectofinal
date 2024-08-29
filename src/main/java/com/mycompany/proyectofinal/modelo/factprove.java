@@ -16,7 +16,8 @@ import java.util.logging.Logger;
  *
  * @author fjavi
  */
-public class factprove extends conexion implements sentencias{
+public class factprove extends conexion implements sentencias {
+
     private int cod;
     private String fecha;
     private int total;
@@ -66,17 +67,27 @@ public class factprove extends conexion implements sentencias{
 
     @Override
     public boolean insertar() {
-        String sql = "insert into factura_proveedor values (?,?,?,?)";
-        try (
-                Connection con = getCon(); PreparedStatement stm = con.prepareStatement(sql)) {
-            stm.setInt(1, this.cod);
-            stm.setString(2, this.fecha);
-            stm.setInt(3, this.total);
-            stm.setInt(4, this.codProvee);
-            stm.executeUpdate();
+        String sql = "INSERT INTO factura_proveedor (fecha, total, codProvee) VALUES (?, ?, ?)";
+        try (PreparedStatement stm = getCon().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            // Asignar los valores a los parámetros de la consulta
+            stm.setString(1, this.fecha);
+            stm.setInt(2, this.total);
+            stm.setInt(3, this.codProvee);
+
+            // Ejecutar la actualización
+            int filasInsertadas = stm.executeUpdate();
+            if (filasInsertadas > 0) {
+                // Obtener la clave generada automáticamente (cod autoincrementado)
+                try (var generatedKeys = stm.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        this.cod = generatedKeys.getInt(1);  // Asignar el cod generado
+                       
+                    }
+                }
+            }
             return true;
         } catch (SQLException ex) {
-            Logger.getLogger(cliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(factprove.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
@@ -95,5 +106,5 @@ public class factprove extends conexion implements sentencias{
     public boolean eliminar() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-  
+
 }

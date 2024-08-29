@@ -46,10 +46,6 @@ import javafx.stage.Stage;
 public class FacturaProveController extends conexion implements Initializable {
 
     @FXML
-    private TextField txtFact;
-    private TextField txtClie;
-    private Button btnBuscarCliente;
-    @FXML
     private DatePicker txtFecha;
     private ComboBox<String> cmbMetodo;
     private TextField txtProd;
@@ -119,8 +115,7 @@ public class FacturaProveController extends conexion implements Initializable {
 
     @FXML
     private void nuevo(ActionEvent event) {
-        txtFact.setDisable(false);
-        txtFact.requestFocus();
+
         txtFecha.setDisable(false);
         btnNuevo.setDisable(true);
         comboProve.setDisable(false);
@@ -223,8 +218,8 @@ public class FacturaProveController extends conexion implements Initializable {
 
     @FXML
     private void agregarFila(ActionEvent event) {
-        if (!"".equals(txtFact.getText()) || comboProve.getSelectionModel().getSelectedItem() != null) {
-            txtFact.setDisable(true);
+        if (comboProve.getSelectionModel().getSelectedItem() != null) {
+    
             comboProve.setDisable(true);
             txtFecha.setDisable(true);
         }
@@ -305,13 +300,12 @@ public class FacturaProveController extends conexion implements Initializable {
                 actualizarStock(detalle.getCodMat(), detalle.getCantidad());
             }
             buscarProveedor();
-            f.setCod(Integer.parseInt(txtFact.getText()));
             f.setFecha(txtFecha.getValue().toString());
             f.setTotal(total);
             f.setCodProvee(codProvee);
             if (f.insertar()) {//insertado
                 for (detalleprove object : registrosDetalle) {
-                    dp.setCod(Integer.parseInt(txtFact.getText()));
+                    dp.setCod(f.getCod());
                     dp.setCodMat(object.getCodMat());
                     dp.setCantidad(object.getCantidad());
                     dp.insertar();
@@ -343,13 +337,13 @@ public class FacturaProveController extends conexion implements Initializable {
         reportes r=new reportes();
               String ubicacion="/reportes/facturaProveedor.jasper";
    String titulo="Imprimir factura del Proveedor";
-        r.generarReporteParametro(ubicacion, titulo,Integer.parseInt(txtFact.getText()));
+        r.generarReporteParametro(ubicacion, titulo,f.getCod());
     }
 
     @FXML
     private void cancelar(ActionEvent event) {
         //limpiar los campos
-        TextField[] fields = {txtFact, txtCant, txtTotal};
+        TextField[] fields = { txtCant, txtTotal};
         for (TextField field : fields) {
             field.clear();
             field.setDisable(false);
@@ -359,7 +353,7 @@ public class FacturaProveController extends conexion implements Initializable {
         txtFecha.setValue(null);
         txtCant.clear();
         txtCant.setDisable(true);
-        txtFact.setDisable(true);
+      
         
         
         comboMaterial.setValue(null);

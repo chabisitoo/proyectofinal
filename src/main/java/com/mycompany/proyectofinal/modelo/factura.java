@@ -8,7 +8,9 @@ import com.mycompany.proyectofinal.clase.conexion;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -79,22 +81,29 @@ public  class factura extends conexion implements sentencias{
     }
 
     @Override
-    public boolean insertar() {
-        String sql = "insert into factura values (?,?,?,?,?)";
-        try (
-                Connection con = getCon(); PreparedStatement stm = con.prepareStatement(sql)) {
-            stm.setInt(1, this.idFactura);
-            stm.setString(2, this.fecha);
-            stm.setInt(3, this.total);
-            stm.setInt(4, this.codCliee);
-            stm.setString(5, this.tipodeven);
-            stm.executeUpdate();
-            return true;
-        } catch (SQLException ex) {
-            Logger.getLogger(cliente.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
+   public boolean insertar() {
+    String sql = "INSERT INTO factura (fecha,cliente_RUC,Total,tipo_venta) VALUES (?, ?, ?,?)";
+    try (PreparedStatement ps = getCon().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        ps.setString(1, fecha);   // Establecer fecha
+        ps.setInt(2, codCliee);   
+        ps.setInt(3, total); 
+        ps.setString(4,tipodeven);
+
+        int filasInsertadas = ps.executeUpdate();
+        if (filasInsertadas > 0) {
+            try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    this.idFactura = generatedKeys.getInt(1);  // Obtener el ID autogenerado
+                    
+                }
+            }
         }
+        return true;
+    } catch (SQLException e) {
+        return false;
     }
+}
+
 
     @Override
     public ArrayList consulta() {

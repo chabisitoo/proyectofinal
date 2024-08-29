@@ -88,8 +88,8 @@ public class detallefactura extends conexion implements sentencias {
         String sql = "insert into detalle_factura values (?,?,?)";
         try (
                 Connection con = getCon(); PreparedStatement stm = con.prepareStatement(sql)) {
-            stm.setInt(1, this.codFactura);
-            stm.setInt(2, this.codSer);
+            stm.setInt(1, this.codSer);
+            stm.setInt(2, this.codFactura);
             stm.setInt(3, this.cantidad);
            
             stm.executeUpdate();

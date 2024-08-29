@@ -46,6 +46,7 @@
             <Menu mnemonicParsing="false" text="Movimientos">
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#factProvee" text="Factura Proveedor" />
+                  <MenuItem mnemonicParsing="false" onAction="#factura" text="Factura" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Informes">
