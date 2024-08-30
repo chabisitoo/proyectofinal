@@ -291,7 +291,7 @@ public class FacturaController implements Initializable {
     private void buscarCliente() {
         
         for (cliente object : registrosCliente) {
-            if(object.getNombre().equals(comboServicio.getSelectionModel().getSelectedItem())){
+            if(object.getNombre().equals(comboCliente.getSelectionModel().getSelectedItem())){
                 codSer = object.getRuc();
                 
             }               
