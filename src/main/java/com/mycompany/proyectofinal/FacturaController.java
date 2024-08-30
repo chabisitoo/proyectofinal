@@ -42,8 +42,7 @@ import javafx.stage.Stage;
  */
 public class FacturaController implements Initializable {
     //prueba branch deaaaa
-    @FXML
-    private TextField txtFact;
+   
     @FXML
     private DatePicker txtFecha;
     @FXML
@@ -111,8 +110,8 @@ public class FacturaController implements Initializable {
     
     @FXML
     private void agregarFila(ActionEvent event) {
-         if (!"".equals(txtFact.getText()) || comboCliente.getSelectionModel().getSelectedItem() != null) {
-            txtFact.setDisable(true);
+         if (comboCliente.getSelectionModel().getSelectedItem() != null) {
+            
             comboCliente.setDisable(true);
             txtFecha.setDisable(true);
         }
@@ -184,8 +183,6 @@ public class FacturaController implements Initializable {
 
     @FXML
     private void nuevo(ActionEvent event) {
-        txtFact.setDisable(false);
-        txtFact.requestFocus();
         txtFecha.setDisable(false);
         btnNuevo.setDisable(true);
         comboCliente.setDisable(false);
@@ -209,13 +206,13 @@ public class FacturaController implements Initializable {
         if (opcion.get() == ButtonType.OK) {
             }
             buscarCliente();
-            f.setIdFactura(Integer.parseInt(txtFact.getText()));
+            buscarServicio();
             f.setFecha(txtFecha.getValue().toString());
             f.setTotal(total);
             f.setCodCliee(codCliee);
             if (f.insertar()) {//insertado
                 for (detallefactura object : registrosDetalle) {
-                    df.setCod(Integer.parseInt(txtFact.getText()));
+                    df.setCod(f.getIdFactura());
                     df.setCodSer(object.getCodSer());
                     df.setCantidad(object.getCantidad());
                     df.insertar();
@@ -245,7 +242,7 @@ public class FacturaController implements Initializable {
 
     @FXML
     private void cancelar(ActionEvent event) {
-         TextField[] fields = {txtFact, txtCant, txtTotal};
+         TextField[] fields = { txtCant, txtTotal};
         for (TextField field : fields) {
             field.clear();
             field.setDisable(false);
@@ -255,7 +252,6 @@ public class FacturaController implements Initializable {
         txtFecha.setValue(null);
         txtCant.clear();
         txtCant.setDisable(true);
-        txtFact.setDisable(true);
         
         
         comboServicio.setValue(null);
