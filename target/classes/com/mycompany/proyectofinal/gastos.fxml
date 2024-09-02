@@ -10,9 +10,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.proyectofinal.GastosController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #1b4f72;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.proyectofinal.GastosController">
    <children>
-      <Pane layoutX="44.0" layoutY="58.0" prefHeight="228.0" prefWidth="179.0" style="-fx-border-color: black; -fx-border-radius: 5px;">
+      <Pane layoutX="44.0" layoutY="58.0" prefHeight="228.0" prefWidth="179.0" style="-fx-border-color: black; -fx-border-radius: 5px; -fx-background-color: #85929e; -fx-background-radius: 5px;">
          <children>
             <TextField fx:id="txtMonto" disable="true" layoutX="14.0" layoutY="87.0" promptText="Monto" />
             <TextField fx:id="txtDesc" disable="true" layoutX="14.0" layoutY="147.0" prefHeight="65.0" prefWidth="149.0" />
@@ -22,7 +22,7 @@
             <ComboBox fx:id="comboMes" disable="true" layoutX="13.0" layoutY="31.0" prefWidth="150.0" />
          </children>
       </Pane>
-      <Pane layoutX="44.0" layoutY="328.0" prefHeight="50.0" prefWidth="530.0" style="-fx-border-color: black; -fx-border-radius: 5px;">
+      <Pane layoutX="44.0" layoutY="328.0" prefHeight="50.0" prefWidth="530.0" style="-fx-border-color: black; -fx-border-radius: 5px; -fx-background-color: #85929e; -fx-background-radius: 5px;">
          <children>
             <Button fx:id="btnNuevo" layoutX="27.0" layoutY="13.0" mnemonicParsing="false" onAction="#nuevo" style="-fx-border-color: #9BB7DD;" text="Nuevo" />
             <Button fx:id="btnGuardar" disable="true" layoutX="97.0" layoutY="13.0" mnemonicParsing="false" onAction="#guardar" style="-fx-border-color: #9BB7DD;" text="Guardar" />
@@ -38,7 +38,7 @@
             <TableColumn fx:id="columDesc" prefWidth="116.800048828125" text="Descripción" />
         </columns>
       </TableView>
-      <Button layoutX="35.0" mnemonicParsing="false" onAction="#volver" style="-fx-background-color: trasparent;" text="🔙">
+      <Button layoutX="35.0" mnemonicParsing="false" onAction="#volver" style="-fx-background-color: trasparent;" text="🔙" textFill="WHITE">
          <font>
             <Font size="25.0" />
          </font>
