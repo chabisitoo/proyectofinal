@@ -10,9 +10,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="410.0" prefWidth="600.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.proyectofinal.ServiciosController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="410.0" prefWidth="600.0" style="-fx-background-color: #1b4f72;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.proyectofinal.ServiciosController">
    <children>
-      <Pane layoutX="41.0" layoutY="63.0" prefHeight="254.0" prefWidth="200.0" style="-fx-border-color: black; -fx-border-radius: 5px;">
+      <Pane layoutX="41.0" layoutY="63.0" prefHeight="254.0" prefWidth="200.0" style="-fx-border-color: black; -fx-border-radius: 5px; -fx-background-color: #85929e; -fx-background-radius: 5px;">
          <children>
             <TextField fx:id="txtId" disable="true" layoutX="26.0" layoutY="39.0" promptText="ID del servicio" />
             <TextField fx:id="txtCost" disable="true" layoutX="26.0" layoutY="93.0" promptText="Costo" />
@@ -29,7 +29,7 @@
             <TableColumn fx:id="columDesc" prefWidth="167.0" text="Descripcion" />
         </columns>
       </TableView>
-      <Pane layoutX="41.0" layoutY="337.0" prefHeight="58.0" prefWidth="536.0" style="-fx-border-color: black; -fx-border-radius: 5px;">
+      <Pane layoutX="41.0" layoutY="337.0" prefHeight="58.0" prefWidth="536.0" style="-fx-border-color: black; -fx-border-radius: 5px; -fx-background-color: #85929e; -fx-background-radius: 5px;">
          <children>
             <Button fx:id="btnNuevo" layoutX="14.0" layoutY="12.0" mnemonicParsing="false" onAction="#nuevo" prefHeight="35.0" prefWidth="62.0" style="-fx-border-color: #9BB7DD; -fx-background-radius: 5px; -fx-border-radius: 5px;" text="Nuevo" />
             <Button fx:id="btnGuardar" disable="true" layoutX="81.0" layoutY="12.0" mnemonicParsing="false" onAction="#guardar" prefHeight="35.0" prefWidth="62.0" style="-fx-border-color: #9BB7DD; -fx-background-radius: 5px; -fx-border-radius: 5px;" text="Guardar" />
@@ -39,7 +39,7 @@
          </children>
       </Pane>
       <TextField fx:id="txtBuscar" layoutX="259.0" layoutY="63.0" onKeyReleased="#busqueda" prefHeight="25.0" prefWidth="316.0" promptText="🔍 Buscar servicio..." style="-fx-background-radius: 5px;" />
-      <Button layoutX="32.0" layoutY="14.0" mnemonicParsing="false" onAction="#volver" style="-fx-background-color: trasparent;" text="🔙">
+      <Button layoutX="32.0" layoutY="14.0" mnemonicParsing="false" onAction="#volver" style="-fx-background-color: trasparent;" text="🔙" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font>

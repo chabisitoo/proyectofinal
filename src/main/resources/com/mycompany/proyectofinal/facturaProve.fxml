@@ -14,7 +14,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="519.0" prefWidth="709.0" style="-fx-background-color: #1b4f72;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.proyectofinal.FacturaProveController">
    <children>
-      <Pane layoutX="14.0" layoutY="38.0" prefHeight="188.0" prefWidth="679.0" style="-fx-background-color: #85929e; -fx-background-radius: 5px;">
+      <Pane layoutX="14.0" layoutY="38.0" prefHeight="188.0" prefWidth="679.0" style="-fx-background-color: #85929e; -fx-background-radius: 5px; -fx-border-color: black; -fx-border-radius: 5px;">
          <children>
             <DatePicker fx:id="txtFecha" disable="true" layoutX="83.0" layoutY="130.0" style="-fx-border-style: solid; -fx-border-radius: 5px; -fx-background-radius: 5px;" />
             <ComboBox fx:id="comboProve" disable="true" layoutX="83.0" layoutY="63.0" prefHeight="27.0" prefWidth="176.0" promptText="Proveedor" style="-fx-border-style: solid; -fx-border-radius: 5px; -fx-background-radius: 5px;" />
@@ -43,8 +43,8 @@
         </columns>
       </TableView>
       <Label layoutX="510.0" layoutY="478.0" text="Total:" />
-      <TextField fx:id="txtTotal" alignment="BOTTOM_RIGHT" disable="true" layoutX="546.0" layoutY="474.0" promptText="0" style="-fx-background-color: #85929e;" />
-      <Pane layoutX="14.0" layoutY="458.0" prefHeight="47.0" prefWidth="478.0" style="-fx-background-color: #85929e; -fx-background-radius: 5px;">
+      <TextField fx:id="txtTotal" alignment="BOTTOM_RIGHT" disable="true" layoutX="546.0" layoutY="474.0" promptText="0" style="-fx-background-color: #85929e; -fx-border-color: black;" />
+      <Pane layoutX="14.0" layoutY="458.0" prefHeight="47.0" prefWidth="478.0" style="-fx-background-color: #85929e; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-border-color: black;">
          <children>
             <Button fx:id="btnNuevo" layoutX="25.0" layoutY="9.0" mnemonicParsing="false" onAction="#nuevo" style="-fx-border-radius: 5px;" text="Nuevo" />
             <Button fx:id="btnGrabar" disable="true" layoutX="99.0" layoutY="9.0" mnemonicParsing="false" onAction="#grabar" style="-fx-border-radius: 5px;" text="Grabar" />

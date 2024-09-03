@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="426.0" prefWidth="703.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.proyectofinal.PrimaryController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="426.0" prefWidth="703.0" style="-fx-background-color: #1b4f72;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.proyectofinal.PrimaryController">
    <children>
-      <Pane layoutX="41.0" layoutY="61.0" prefHeight="261.0" prefWidth="200.0" style="-fx-border-color: black; -fx-border-radius: 5px;">
+      <Pane layoutX="41.0" layoutY="61.0" prefHeight="261.0" prefWidth="200.0" style="-fx-border-color: black; -fx-border-radius: 5px; -fx-background-color: #85929e; -fx-background-radius: 5px;">
          <children>
             <TextField fx:id="txtRuc" disable="true" layoutX="26.0" layoutY="22.0" promptText="RUC" />
             <TextField fx:id="txtNom" disable="true" layoutX="26.0" layoutY="68.0" promptText="Nombre" />
@@ -32,7 +32,7 @@
             <TextField fx:id="txtBuscar" layoutX="11.0" layoutY="14.0" onKeyReleased="#busqueda" prefHeight="25.0" prefWidth="386.0" promptText="🔍 Buscar nombre..." style="-fx-background-radius: 5px;" />
          </children>
       </Pane>
-      <Pane layoutX="40.0" layoutY="332.0" prefHeight="79.0" prefWidth="622.0" style="-fx-border-color: black; -fx-border-radius: 5px;">
+      <Pane layoutX="40.0" layoutY="332.0" prefHeight="79.0" prefWidth="622.0" style="-fx-border-color: black; -fx-border-radius: 5px; -fx-background-color: #85929e; -fx-background-radius: 5px;">
          <children>
             <Button fx:id="btnGuardar" disable="true" layoutX="14.0" layoutY="17.0" mnemonicParsing="false" onAction="#guardar" prefHeight="39.0" prefWidth="61.0" style="-fx-background-radius: 5px;" text="Guardar" />
             <Button fx:id="btnCancelar" disable="true" layoutX="93.0" layoutY="17.0" mnemonicParsing="false" onAction="#cancelar" prefHeight="39.0" prefWidth="74.0" style="-fx-background-radius: 5px;" text="Cancelar" />
