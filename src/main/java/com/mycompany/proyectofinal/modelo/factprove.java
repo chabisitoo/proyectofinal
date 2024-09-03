@@ -67,7 +67,7 @@ public class factprove extends conexion implements sentencias {
 
     @Override
     public boolean insertar() {
-        String sql = "INSERT INTO factura_proveedor (fecha, total, codProvee) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO factura_proveedor (fecha, total, Proveedor_idProveedor) VALUES (?, ?, ?)";
         try (PreparedStatement stm = getCon().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             // Asignar los valores a los parámetros de la consulta
             stm.setString(1, this.fecha);

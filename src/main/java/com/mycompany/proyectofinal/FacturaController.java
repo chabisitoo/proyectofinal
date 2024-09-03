@@ -128,7 +128,7 @@ public class FacturaController implements Initializable {
                 }
             }
 
-            if (servicioRepetido) {
+            if (!servicioRepetido) {
                 int subtotal = precio * Integer.parseInt(txtCant.getText());
                 total = total + subtotal;
 
@@ -188,7 +188,9 @@ public class FacturaController implements Initializable {
         btnNuevo.setDisable(true);
         comboCliente.setDisable(false);
         comboServicio.setDisable(false);
-        comboTipo.setDisable(true);
+        comboTipo.setDisable(false);
+        comboTipo.getItems().addAll("Contado","Credito");
+       
         //fecha actual
         txtFecha.setValue(LocalDate.now());
         cargarCliente();
@@ -205,12 +207,13 @@ public class FacturaController implements Initializable {
         alerta.setContentText("¿Desea grabar el pedido?");
         Optional<ButtonType> opcion = alerta.showAndWait();
         if (opcion.get() == ButtonType.OK) {
-            }
+
             buscarCliente();
             buscarServicio();
             f.setFecha(txtFecha.getValue().toString());
             f.setTotal(total);
             f.setCodCliee(codCliee);
+            f.setTipodeven(comboTipo.getSelectionModel().getSelectedItem());
             if (f.insertar()) {//insertado
                 for (detallefactura object : registrosDetalle) {
                     df.setCod(f.getIdFactura());
@@ -236,9 +239,11 @@ public class FacturaController implements Initializable {
         btnGrabar.setDisable(true);
         comboServicio.setDisable(true);
         txtCant.setDisable(true);
+        comboTipo.setDisable(true);
         btnAgregar.setDisable(true);
+        btnImprimir.setDisable(false);
         
-    
+        }
     }
 
     @FXML
@@ -251,14 +256,18 @@ public class FacturaController implements Initializable {
         registrosDetalle.clear();
         tablaDetalle.refresh();
         txtFecha.setValue(null);
+        txtFecha.setDisable(true);
         txtCant.clear();
         txtCant.setDisable(true);
         
-        
+        comboTipo.setValue(null);
         comboServicio.setValue(null);
+        comboServicio.getItems().clear();
         comboCliente.setValue(null);
+        comboCliente.getItems().clear();
         comboServicio.setDisable(true);
-        txtFecha.setDisable(false);
+        comboTipo.setDisable(true);
+        comboTipo.getItems().clear();
         
         comboCliente.setDisable(true);
         btnGrabar.setDisable(true);
@@ -271,7 +280,8 @@ public class FacturaController implements Initializable {
     private void imprimir(ActionEvent event) {
          reportes r=new reportes();
               String ubicacion="/reportes/facturaServicio.jasper";
-   String titulo="Imprimir factura del Proveedor";
+   String titulo="Imprimir factura";
+        System.out.println(f.getIdFactura());
         r.generarReporteParametro(ubicacion, titulo,f.getIdFactura());
     }
 
@@ -294,16 +304,12 @@ public class FacturaController implements Initializable {
         }
     }
     private void buscarCliente() {
-        
-        for (cliente object : registrosCliente) {
-            if(object.getNombre().equals(comboCliente.getSelectionModel().getSelectedItem())){
-                codSer = object.getRuc();
-                
-            }               
-        }
-       
-    
+    for (cliente object : registrosCliente) {
+        if (object.getNombre().equals(comboCliente.getSelectionModel().getSelectedItem())) {
+            codCliee = object.getRuc(); // Asignar a codCliee
+        }               
     }
+}
     private void buscarServicio() {
 
         for (servicios object : registrosServicios) {

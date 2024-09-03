@@ -82,16 +82,16 @@ public  class factura extends conexion implements sentencias{
 
     @Override
    public boolean insertar() {
-    String sql = "INSERT INTO factura (fecha,cliente_RUC,Total,tipo_venta) VALUES (?, ?, ?,?)";
-    try (PreparedStatement ps = getCon().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-        ps.setString(1, fecha);   // Establecer fecha
-        ps.setInt(2, codCliee);   
-        ps.setInt(3, total); 
-        ps.setString(4,tipodeven);
+    String sql = "INSERT INTO factura (Fecha,cliente_RUC,Total,tipo_venta) VALUES (?, ?, ?,?)";
+    try (PreparedStatement stm = getCon().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+        stm.setString(1, fecha);   // Establecer fecha
+        stm.setInt(2, codCliee);   
+        stm.setInt(3, total); 
+        stm.setString(4,tipodeven);
 
-        int filasInsertadas = ps.executeUpdate();
+        int filasInsertadas = stm.executeUpdate();
         if (filasInsertadas > 0) {
-            try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+            try (var generatedKeys = stm.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     this.idFactura = generatedKeys.getInt(1);  // Obtener el ID autogenerado
                     
@@ -100,7 +100,13 @@ public  class factura extends conexion implements sentencias{
         }
         return true;
     } catch (SQLException e) {
-        return false;
+        
+   
+        
+   
+    System.out.println("Error de SQL: " + e.getMessage());
+    return false;   
+       
     }
 }
 
