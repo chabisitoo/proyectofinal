@@ -1,5 +1,6 @@
 com\mycompany\proyectofinal\modelo\gastos.class
 com\mycompany\proyectofinal\modelo\factprove.class
+com\mycompany\proyectofinal\ReporClienteController.class
 com\mycompany\proyectofinal\App.class
 com\mycompany\proyectofinal\GastosController.class
 com\mycompany\proyectofinal\clase\reportes.class

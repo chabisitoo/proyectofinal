@@ -99,10 +99,7 @@ public class MenuController implements Initializable {
 
     @FXML
     private void reporCliente(ActionEvent event) {
-        reportes r=new reportes();
-              String ubicacion="/reportes/clienteF.jasper";
-   String titulo="Informe de Cliente";
-        r.generarReporte(ubicacion, titulo);
+        abrirFxml("reporCliente.fxml","reporte cliente");
     }
 
     @FXML
@@ -118,6 +115,14 @@ public class MenuController implements Initializable {
     @FXML
     private void factura(ActionEvent event) {
         abrirFxml("factura.fxml","Formulario Factura");
+    }
+
+    @FXML
+    private void reporVentas(ActionEvent event) {
+        reportes r=new reportes();
+              String ubicacion="/reportes/Ventas.jasper";
+   String titulo="Imprimir factura";
+        r.generarReporte(ubicacion, titulo);
     }
 
 }

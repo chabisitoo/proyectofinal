@@ -51,7 +51,8 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Informes">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#reporCliente" text="Clientes" />
+                  <MenuItem mnemonicParsing="false" onAction="#reporCliente" text="Servicios/Cliente" />
+                  <MenuItem mnemonicParsing="false" onAction="#reporVentas" text="Ventas" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Ayuda">

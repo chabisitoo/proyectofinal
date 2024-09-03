@@ -44,33 +44,20 @@ import javafx.stage.Stage;
 public class FacturaController implements Initializable {
     //prueba branch deaaaa
    
-    @FXML
     private DatePicker txtFecha;
-    @FXML
     private TextField txtCant;
-    @FXML
     private Button btnAgregar;
     @FXML
     private ComboBox<String> comboCliente;
-    @FXML
     private ComboBox<String> comboServicio;
-    @FXML
     private TableView<detallefactura> tablaDetalle;
-    @FXML
     private TableColumn<detallefactura, Integer> columCod;
-    @FXML
     private TableColumn<detallefactura, String> columDesc;
-    @FXML
     private TableColumn<detallefactura, Integer> columPrecio;
-    @FXML
     private TableColumn<detallefactura, Integer> columCant;
-    @FXML
     private TableColumn<detallefactura, Integer> columSubTotal;
-    @FXML
     private TextField txtTotal;
-    @FXML
     private Button btnNuevo;
-    @FXML
     private Button btnGrabar;
     @FXML
     private Button btnImprimir;
@@ -88,7 +75,6 @@ public class FacturaController implements Initializable {
     ObservableList<cliente> registrosCliente;
     ObservableList<servicios> registrosServicios;
     ObservableList<detallefactura> registrosDetalle;
-    @FXML
     private ComboBox<String> comboTipo;
 
     /**
@@ -109,7 +95,6 @@ public class FacturaController implements Initializable {
         tablaDetalle.setTooltip(new Tooltip("Agregar productos"));
     }
     
-    @FXML
     private void agregarFila(ActionEvent event) {
          if (comboCliente.getSelectionModel().getSelectedItem() != null) {
             
@@ -182,7 +167,6 @@ public class FacturaController implements Initializable {
     
     }
 
-    @FXML
     private void nuevo(ActionEvent event) {
         txtFecha.setDisable(false);
         btnNuevo.setDisable(true);
@@ -199,7 +183,6 @@ public class FacturaController implements Initializable {
         btnAgregar.setDisable(false);
     }
 
-    @FXML
     private void grabar(ActionEvent event) {
         Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
         alerta.setTitle("El sistema comunica;");
@@ -246,7 +229,6 @@ public class FacturaController implements Initializable {
         }
     }
 
-    @FXML
     private void cancelar(ActionEvent event) {
          TextField[] fields = { txtCant, txtTotal};
         for (TextField field : fields) {
