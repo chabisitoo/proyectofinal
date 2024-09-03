@@ -4,6 +4,7 @@
  */
 package com.mycompany.proyectofinal;
 
+import com.mycompany.proyectofinal.clase.reportes;
 import com.mycompany.proyectofinal.modelo.cliente;
 import com.mycompany.proyectofinal.modelo.detallefactura;
 import com.mycompany.proyectofinal.modelo.detalleprove;
@@ -88,7 +89,7 @@ public class FacturaController implements Initializable {
     ObservableList<servicios> registrosServicios;
     ObservableList<detallefactura> registrosDetalle;
     @FXML
-    private ComboBox<?> comboTipo;
+    private ComboBox<String> comboTipo;
 
     /**
      * Initializes the controller class.
@@ -268,6 +269,10 @@ public class FacturaController implements Initializable {
 
     @FXML
     private void imprimir(ActionEvent event) {
+         reportes r=new reportes();
+              String ubicacion="/reportes/facturaServicio.jasper";
+   String titulo="Imprimir factura del Proveedor";
+        r.generarReporteParametro(ubicacion, titulo,f.getIdFactura());
     }
 
     @FXML
