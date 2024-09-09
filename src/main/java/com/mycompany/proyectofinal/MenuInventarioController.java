@@ -27,6 +27,11 @@ import javafx.stage.StageStyle;
  */
 public class MenuInventarioController implements Initializable {
 
+    @FXML
+    private MenuItem menuMateriales;
+    @FXML
+    private MenuItem menuProveedores;
+
     /**
      * Initializes the controller class.
      */
@@ -71,6 +76,27 @@ public class MenuInventarioController implements Initializable {
     @FXML
     private void salir(ActionEvent event) {
         System.exit(0);
+    }
+
+    @FXML
+    private void factProvee(ActionEvent event) {
+       abrirFxml("facturaProve.fxml","Formulario Factura Proveedores");
+    }
+
+    @FXML
+    private void inventario(ActionEvent event) {
+        reportes r=new reportes();
+              String ubicacion="/reportes/Inventario.jasper";
+   String titulo="Reporte inventario";
+        r.generarReporte(ubicacion, titulo);
+    }
+
+    @FXML
+    private void faltastock(ActionEvent event) {
+        reportes r=new reportes();
+              String ubicacion="/reportes/StockMinimo.jasper";
+   String titulo="Reporte stock faltante";
+        r.generarReporte(ubicacion, titulo);
     }
 
     

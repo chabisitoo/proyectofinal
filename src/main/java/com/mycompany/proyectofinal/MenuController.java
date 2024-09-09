@@ -121,7 +121,23 @@ public class MenuController implements Initializable {
     private void reporVentas(ActionEvent event) {
         reportes r=new reportes();
               String ubicacion="/reportes/Ventas.jasper";
-   String titulo="Imprimir factura";
+   String titulo="Reporte ventas";
+        r.generarReporte(ubicacion, titulo);
+    }
+
+    @FXML
+    private void inventario(ActionEvent event) {
+        reportes r=new reportes();
+              String ubicacion="/reportes/Inventario.jasper";
+   String titulo="Reporte inventario";
+        r.generarReporte(ubicacion, titulo);
+    }
+
+    @FXML
+    private void faltastock(ActionEvent event) {
+        reportes r=new reportes();
+              String ubicacion="/reportes/StockMinimo.jasper";
+   String titulo="Reporte stock faltante";
         r.generarReporte(ubicacion, titulo);
     }
 

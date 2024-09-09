@@ -112,8 +112,8 @@ public class proveedores extends conexion implements sentencias {
         try (
                 Connection con = getCon(); PreparedStatement stm = con.prepareStatement(sql)) {
             stm.setString(1, this.nombre);
-            stm.setString(2, this.direccion);
-            stm.setString(3, this.contacto);
+            stm.setString(2, this.contacto);
+            stm.setString(3, this.direccion);
             stm.setInt(4,this.idProveedor);
             stm.executeUpdate();
             return true;

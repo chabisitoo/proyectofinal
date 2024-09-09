@@ -19,6 +19,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
@@ -67,6 +68,16 @@ public class ReporClienteController extends conexion implements Initializable {
 
     @FXML
     private void imprimir(ActionEvent event) {
+        if (comboCliente.getSelectionModel().getSelectedItem() == null) {     
+       
+         Alert alert = new Alert(Alert.AlertType.WARNING);
+         alert.setTitle("Selección requerida");
+         alert.setHeaderText(null);
+         alert.setContentText("Por favor, seleccione un cliente.");
+         alert.showAndWait();
+        return; // Terminar el método si no hay selección
+    }
+
         buscarCliente();
         String ubicacion = "/reportes/ServiciosCliente.jasper";
         String titulo = "Imprimir reporte por cliente";

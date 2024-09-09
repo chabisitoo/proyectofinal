@@ -97,7 +97,7 @@ public class GastosController implements Initializable {
             alerta.show();
         } else {
             int monto = Integer.parseInt(txtMonto.getText());
-            String mes = txtMes.getText();
+         
             String descripcion = txtDesc.getText();
             g.setMes(comboMes.getSelectionModel().getSelectedItem());
             g.setMonto(monto);

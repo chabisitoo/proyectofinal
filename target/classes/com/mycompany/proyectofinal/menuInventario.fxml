@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="480.0" prefWidth="756.0" style="-fx-background-color: #5271ff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.proyectofinal.MenuController">
+<AnchorPane id="AnchorPane" prefHeight="480.0" prefWidth="756.0" style="-fx-background-color: #5271ff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.proyectofinal.MenuInventarioController">
    <children>
       <MenuBar prefHeight="39.0" prefWidth="869.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <menus>
@@ -31,8 +31,15 @@
                   </MenuItem>
                </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Movimientos" />
-            <Menu mnemonicParsing="false" text="Informes" />
+            <Menu mnemonicParsing="false" text="Movimientos">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#factProvee" text="Pedidos al proveedor" />
+               </items></Menu>
+            <Menu mnemonicParsing="false" text="Informes">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#inventario" text="Inventario" />
+                  <MenuItem mnemonicParsing="false" onAction="#faltastock" text="Stock Faltante" />
+               </items></Menu>
             <Menu mnemonicParsing="false" text="Ayuda">
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#cerrar" text="Cerrar Sesion" />
@@ -42,7 +49,7 @@
       </MenuBar>
       <ImageView fitHeight="327.0" fitWidth="415.0" layoutX="215.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@AS%20Electromecanica%20(1).png" />
+            <Image url="@ASlogo.png" />
          </image>
       </ImageView>
       <Text layoutX="282.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Menu de Inventario">

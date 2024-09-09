@@ -43,9 +43,9 @@ public class conexion {
 
     public conexion() {
         this.base = "proyectofinal";
-        this.host = "localhost";
-        this.usuario = "root";
-        this.contra = "";
+        this.host = "186.17.87.89:3004";
+        this.usuario = "Alumnos";
+        this.contra = "Info024";
     }
     
     public String getBase() {

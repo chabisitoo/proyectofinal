@@ -26,10 +26,14 @@
                   </MenuItem>
                </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Movimientos" />
+            <Menu mnemonicParsing="false" text="Movimientos">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#venta" text="Venta" />
+               </items></Menu>
             <Menu mnemonicParsing="false" text="Informes">
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#reporCliente" text="Clientes" />
+                  <MenuItem mnemonicParsing="false" onAction="#reporVenta" text="Ventas" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Ayuda">
@@ -41,7 +45,7 @@
       </MenuBar>
       <ImageView fitHeight="313.0" fitWidth="374.0" layoutX="252.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@AS%20Electromecanica%20(1).png" />
+            <Image url="@ASlogo.png" />
          </image>
       </ImageView>
       <Text layoutX="328.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Menu de Ventas">

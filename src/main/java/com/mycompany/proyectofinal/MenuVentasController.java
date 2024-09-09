@@ -69,15 +69,25 @@ public class MenuVentasController implements Initializable {
 
     @FXML
     private void reporCliente(ActionEvent event) {
-        reportes r = new reportes();
-        String ubicacion = "/reportes/clienteF.jasper";
-        String titulo = "Informe de Cliente";
-        r.generarReporte(ubicacion, titulo);
+        abrirFxml("reporCliente.fxml","reporte cliente");
     }
 
     @FXML
     private void salir(ActionEvent event) {
         System.exit(0);
+    }
+
+    @FXML
+    private void venta(ActionEvent event) {
+        abrirFxml("factura.fxml","Factura");
+    }
+
+    @FXML
+    private void reporVenta(ActionEvent event) {
+        reportes r=new reportes();
+              String ubicacion="/reportes/Ventas.jasper";
+   String titulo="Reporte ventas";
+        r.generarReporte(ubicacion, titulo);
     }
 
 }
